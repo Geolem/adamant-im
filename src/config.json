@@ -2,19 +2,9 @@
   "server": {
     "adm": [
       {
-        "ip": "clown.adamant.im",
-        "protocol": "https",
-        "port": ""
-      },
-      {
-        "ip": "lake.adamant.im",
-        "protocol": "https",
-        "port": ""
-      },
-      {
-        "ip": "endless.adamant.im",
-        "protocol": "https",
-        "port": ""
+        "ip": "163.172.132.38",
+        "protocol": "http",
+        "port": "36667"
       }
     ],
     "eth": [

@@ -363,6 +363,9 @@ const store = {
       } else {
         return state.passPhrase
       }
+    },
+    isLoggedUser: state => {
+      return state.passPhrase.length !== 0
     }
   },
   modules: {

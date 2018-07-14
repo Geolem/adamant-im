@@ -18,7 +18,7 @@
             </md-layout>
           </md-layout>
         </md-layout>
-        <md-snackbar md-position="bottom center" md-accent ref="chatSnackbar" md-duration="2000">
+        <md-snackbar v-if="isLoggedUser" md-position="bottom center" md-accent ref="chatSnackbar" md-duration="2000">
           <span>{{ formErrorMessage }}</span>
         </md-snackbar>
       </md-dialog-content>
@@ -84,6 +84,9 @@ export default {
     }
   },
   computed: {
+    isLoggedUser: function () {
+      return this.$store.getters.isLoggedUser
+    }
   },
   watch: { },
   data () {

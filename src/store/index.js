@@ -3,9 +3,12 @@ import Vue from 'vue'
 import {Base64} from 'js-base64'
 
 import storeData from '../lib/lsStore.js'
-import ethModule from './modules/eth'
 
+import ethModule from './modules/eth'
 import partnersModule from './modules/partners'
+import admModule from './modules/adm'
+
+import delegatesModule from './modules/delegates'
 
 import * as admApi from '../lib/adamant-api'
 import {base64regex} from '../lib/constants'
@@ -90,12 +93,8 @@ const store = {
     totalNewChats: 0,
     chats: {},
     lastChatHeight: 0,
-    lastTransactionHeight: 0,
     currentChat: false,
-    storeInLocalStorage: false,
-    delegates: {},
-    originDelegates: {},
-    lastTransactionConfirmed: true
+    storeInLocalStorage: false
   },
   actions: {
     add_chat_i18n_message ({commit}, payload) {
@@ -114,6 +113,9 @@ const store = {
     }
   },
   mutations: {
+    last_visited_chat (state, payload) {
+      state.lastVisitedChat = payload
+    },
     force_update (state) {
     },
     change_send_on_enter (state, payload) {
@@ -175,6 +177,7 @@ const store = {
       state.publicKey = false
       state.privateKey = false
       state.secretKey = false
+      state.lastVisitedChat = null
     },
     stop_tracking_new (state) {
       state.trackNewMessages = false
@@ -209,10 +212,10 @@ const store = {
         state.is_new_account = payload.is_new_account
       }
     },
-    transaction_info (state, payload) {
-      payload.direction = (state.address === payload.recipientId) ? 'to' : 'from'
-      Vue.set(state.transactions, payload.id, payload)
-    },
+    // transaction_info (state, payload) {
+    //   payload.direction = (state.address === payload.recipientId) ? 'to' : 'from'
+    //   Vue.set(state.transactions, payload.id, payload)
+    // },
     connect (state, payload) {
       state.connectionString = payload.string
     },
@@ -257,11 +260,11 @@ const store = {
         state.lastChatHeight = payload
       }
     },
-    set_last_transaction_height (state, payload) {
-      if (state.lastTransactionHeight < payload) {
-        state.lastTransactionHeight = payload
-      }
-    },
+    // set_last_transaction_height (state, payload) {
+    //   if (state.lastTransactionHeight < payload) {
+    //     state.lastTransactionHeight = payload
+    //   }
+    // },
     add_chat_message (state, payload) {
       var me = state.address
       var partner = ''
@@ -332,30 +335,10 @@ const store = {
       Vue.set(state.chats, partner, currentDialogs)
       payload.direction = direction
       Vue.set(state.chats[partner].messages, payload.id, payload)
-    },
-    delegate_info (state, payload) {
-      Vue.set(state.delegates, payload.address, payload)
-    },
-    clean_delegates (state) {
-      state.delegates = {}
-    },
-    update_delegate (state, payload) {
-      for (let key in payload.params) {
-        Vue.set(state.delegates[payload.address], key, payload.params[key])
-      }
-    },
-    set_last_transaction_status (state, payload) {
-      state.lastTransactionConfirmed = payload
     }
   },
   plugins: [storeData()],
   getters: {
-    /** Returns transactions for the currently opened chat */
-    currentChatTransactions: state => {
-      const partner = state.currentChat && state.currentChat.partner
-      const transactions = Object.values(state.transactions) || []
-      return transactions.filter(x => x.senderId === partner || x.recipientId === partner)
-    },
     // Returns decoded pass phrase from store
     getPassPhrase: state => {
       if (state.passPhrase.match(base64regex)) {
@@ -363,11 +346,16 @@ const store = {
       } else {
         return state.passPhrase
       }
+    },
+    lastVisitedChat: state => {
+      return state.lastVisitedChat
     }
   },
   modules: {
     eth: ethModule, // Ethereum-related data
-    partners: partnersModule // Partners: display names, crypto addresses and so on
+    adm: admModule, // ADM transfers
+    partners: partnersModule, // Partners: display names, crypto addresses and so on
+    delegates: delegatesModule // Voting for delegates screen
   }
 }
 

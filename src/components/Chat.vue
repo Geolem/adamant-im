@@ -164,6 +164,7 @@ export default {
     }
   },
   mounted: function () {
+    this.$store.commit('last_visited_chat', this.$route.params.partner)
     this.$store.commit('select_chat', this.$route.params.partner)
     this.$store.commit('mark_as_read_total', this.$route.params.partner)
     this.$store.commit('mark_as_read', this.$route.params.partner)
@@ -187,7 +188,9 @@ export default {
       }
 
       const chat = this.$store.state.currentChat.messages || { }
-      const transactions = this.$store.getters.currentChatTransactions.filter(x => !chat[x.id])
+      const transactions = this.$store
+        .getters['adm/partnerTransactions'](this.$store.state.currentChat.partner)
+        .filter(x => !chat[x.id])
       const messages = Object.values(chat).concat(transactions)
 
       return messages.sort(compare)

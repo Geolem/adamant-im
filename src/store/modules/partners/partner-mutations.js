@@ -35,7 +35,7 @@ export default {
       console.log('state.list[payload.partner] obj BEFORE: ')
       console.log(state.list[payload.partner])
     
-    state.list[payload.partner] = Object.assign({ }, state[payload.partner], { [payload.crypto]: payload.address })
+    state.list[payload.partner] = Object.assign({ }, state.list[payload.partner], { [payload.crypto]: payload.address })
 
     console.log('state.list[payload.partner] obj AFTER: ')
     console.log(state.list[payload.partner])    

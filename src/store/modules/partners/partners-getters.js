@@ -3,11 +3,10 @@ export default {
    * Gets partner display name or `undefined` if one is not set
    */
   displayName: state => partner => {
-    if (address == 'U438236181740289346') {
+
       console.log('Getters-displayName:')
       console.log('partner: ' + partner)
       console.log('state.list[partner]: ' + state.list[partner])    
-    }
     
     if (state.list[partner]) {
       console.log('NOT NULL, state.list[partner].displayName: ' + state.list[partner].displayName)    

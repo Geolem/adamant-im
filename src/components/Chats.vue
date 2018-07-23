@@ -72,10 +72,12 @@ export default {
       return 0
     },
     chatName (address) {
+    if (address == 'U438236181740289346') {
       console.log('Chats-chatName:')
       console.log('store: ' + this.$store)    
       console.log('address: ' + address)
       console.log('getters[partners/displayName]: ' + this.$store.getters['partners/displayName'](address))
+     } 
       return this.$store.getters['partners/displayName'](address) || address
     },
     startNewChat () {

@@ -6,8 +6,15 @@ export default {
       console.log('Getters-displayName:')
       console.log('partner: ' + partner)
       console.log('state.list[partner]: ' + state.list[partner])    
-      console.log('state.list[partner].displayName: ' + state.list[partner].displayName)    
-    return state.list[partner] && state.list[partner].displayName
+      
+    if (state.list[partner]) {
+      console.log('NOT NULL, state.list[partner].displayName: ' + state.list[partner].displayName)    
+      return state.list[partner].displayName
+    }
+    else {
+      console.log('NULL')    
+      return null
+    }
   },
 
   /**

@@ -171,10 +171,18 @@ export default {
       return Object.keys(Cryptos)
     },
     displayName () {
+      console.log('Transfer-displayName:')
+      console.log('store: ' + this.$store)
+      console.log('this.fixedAddress: ' + this.fixedAddress)
+      console.log('getters['partners/displayName']: ' + this.$store.getters['partners/displayName'](this.fixedAddress))
       return this.$store.getters['partners/displayName'](this.fixedAddress)
     },
     addressLabel () {
       const displayName = this.displayName
+      console.log('Transfer-addressLabel:')
+      console.log('displayName: ' + displayName)
+      console.log('this.fixedCrypto: ' + this.fixedCrypto)
+      
       if (displayName) {
         return this.$t('transfer.to_label') + ' ' + displayName
       }
@@ -198,6 +206,11 @@ export default {
     }
   },
   mounted () {
+      console.log('Transfer-mounted:')
+      console.log('displayName: ' + displayName)
+      console.log('this.fixedCrypto: ' + this.fixedCrypto)
+      console.log('this.fixedAddress: ' + this.fixedAddress)
+
     if (!this.fixedCrypto || !this.fixedAddress) return
 
     this.targetAddress = (this.fixedCrypto === Cryptos.ADM)

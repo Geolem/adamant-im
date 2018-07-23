@@ -4,6 +4,7 @@ import initialState from './partners-state'
 export default {
   /** Resets module state */
   reset (state) {
+    console.log('Mutations-reset:')
     resetState(state, initialState)
   },
 
@@ -30,6 +31,7 @@ export default {
    * @param {{partner: string, crypto: string, address: string}} payload partner ADM address, crypto and crypto address
    */
   address (state, payload) {
+    console.log('Mutations-address:')
     state.list[payload.partner] = Object.assign({ }, state[payload.partner],
       { [payload.crypto]: payload.address })
   },
@@ -40,6 +42,7 @@ export default {
    * @param {Object.<string, {displayName: string}>} contacts contacts list
    */
   contactList (state, contacts) {
+    console.log('Mutations-contactList:')
     if (!contacts) return
     Object.keys(contacts).forEach(uid => {
       state.list[uid] = Object.assign({ }, state.list[uid], contacts[uid])

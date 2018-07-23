@@ -8,9 +8,9 @@ export default {
       console.log('Getters-displayName=============')
       console.log('partner: ' + partner)
       console.log('state.list obj:')    
-      console.log(state.list)    
+      console.log(JSON.stringify(state.list))    
       console.log('state.list[partner] obj: ')    
-      console.log(state.list[partner])    
+      console.log(JSON.stringify(state.list[partner]))    
     }
     
     if (state.list[partner]) {

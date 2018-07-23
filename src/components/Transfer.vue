@@ -172,7 +172,8 @@ export default {
     },
     displayName () {
       console.log('Transfer-displayName:')
-      console.log('store: ' + this.$store)
+      console.log('store obj: ')
+      console.log(JSON.stringify(this.$store))
       console.log('this.fixedAddress: ' + this.fixedAddress)
       console.log('getters[partners/displayName]: ' + this.$store.getters['partners/displayName'](this.fixedAddress))
       return this.$store.getters['partners/displayName'](this.fixedAddress)

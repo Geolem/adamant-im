@@ -207,7 +207,6 @@ export default {
   },
   mounted () {
       console.log('Transfer-mounted:')
-      console.log('displayName: ' + displayName)
       console.log('this.fixedCrypto: ' + this.fixedCrypto)
       console.log('this.fixedAddress: ' + this.fixedAddress)
 
@@ -216,6 +215,7 @@ export default {
     this.targetAddress = (this.fixedCrypto === Cryptos.ADM)
       ? this.fixedAddress
       : this.$store.getters['partners/cryptoAddress'](this.fixedAddress, this.fixedCrypto)
+    console.log('this.targetAddress: ' + this.targetAddress)
   },
   watch: {
     targetAmount (to, from) {

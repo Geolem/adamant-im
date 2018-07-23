@@ -32,8 +32,12 @@ export default {
    */
   address (state, payload) {
     console.log('Mutations-address:')
+      console.log('state.list[payload.partner] obj BEFORE: ')
+      console.log(JSON.stringify(state.list[payload.partner])    
     state.list[payload.partner] = Object.assign({ }, state[payload.partner],
       { [payload.crypto]: payload.address })
+      console.log('state.list[payload.partner] obj AFTER: ')
+      console.log(JSON.stringify(state.list[payload.partner])    
   },
 
   /**

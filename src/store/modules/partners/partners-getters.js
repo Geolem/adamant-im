@@ -4,16 +4,25 @@ export default {
    */
   displayName: state => partner => {
 
-      console.log('Getters-displayName:')
+    if (partner == 'U438236181740289346') {
+      console.log('Getters-displayName=============')
       console.log('partner: ' + partner)
-      console.log('state.list[partner]: ' + state.list[partner])    
+      console.log('state.list obj:')    
+      console.log(state.list)    
+      console.log('state.list[partner] obj: ')    
+      console.log(state.list[partner])    
+    }
     
     if (state.list[partner]) {
-      console.log('NOT NULL, state.list[partner].displayName: ' + state.list[partner].displayName)    
+      if (partner == 'U438236181740289346') {
+        console.log('NOT NULL, state.list[partner].displayName: ' + state.list[partner].displayName)    
+      }  
       return state.list[partner].displayName
     }
     else {
+    if (partner == 'U438236181740289346') {
       console.log('NULL')    
+    }  
       return null
     }
   },

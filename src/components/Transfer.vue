@@ -174,7 +174,7 @@ export default {
       console.log('Transfer-displayName:')
       console.log('store: ' + this.$store)
       console.log('this.fixedAddress: ' + this.fixedAddress)
-      console.log('getters['partners/displayName']: ' + this.$store.getters['partners/displayName'](this.fixedAddress))
+      console.log('getters[partners/displayName]: ' + this.$store.getters['partners/displayName'](this.fixedAddress))
       return this.$store.getters['partners/displayName'](this.fixedAddress)
     },
     addressLabel () {

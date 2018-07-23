@@ -75,7 +75,7 @@ export default {
     if (address == 'U438236181740289346') {
       console.log('Chats-chatName:')
       console.log('store obj: ')
-      console.log(JSON.stringify(this.$store))
+      console.log(this.$store)
       console.log('address: ' + address)
       console.log('getters[partners/displayName]: ' + this.$store.getters['partners/displayName'](address))
      } 

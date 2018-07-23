@@ -13,7 +13,14 @@ export default {
    * @param {{partner: string, displayName: string}} payload partner address and display name
    */
   displayName (state, { partner, displayName }) {
+      console.log('Mutations-displayName:')
+      console.log('partner: ' + partner)
+      console.log('displayName: ' + displayName)    
+
+    
     state.list[partner] = Object.assign({ }, state.list[partner], { displayName })
+
+          console.log('state.list[partner]: ' + state.list[partner])    
     state.lastChange = Date.now()
   },
 

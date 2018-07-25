@@ -20,7 +20,7 @@
 
             <md-list-item :id="formatPartnerName(chat.partner)" class="black-text" v-for="(chat) in chatList" :key="chat.partner" v-on:click="$router.push('/chats/' + chat.partner + '/')">
                 <md-avatar v-if="!chat.readOnly" class="md-avatar-icon" style="overflow: visible;">
-                    <md-icon>library_books</md-icon>
+                    <md-icon>sms</md-icon>
                     <div class="new-icon" v-if="newMessages(chat.partner)">{{ newMessages(chat.partner) }}</div>
                 </md-avatar>
                 <md-avatar class="adamant-avatar-wrapper" v-else>
@@ -31,7 +31,6 @@
                     <chat-entry :message="chat.last_message" :brief="true"></chat-entry>
                     <span class="dt" v-if="chat.last_message.timestamp">{{ $formatDate(chat.last_message.timestamp) }}</span>
                 </div>
-
             </md-list-item>
         </md-list>
     </md-layout>
@@ -42,7 +41,19 @@
 <script>
 import NewChat from './NewChat.vue'
 import ChatEntry from './chat/ChatEntry.vue'
+
 const VueScrollTo = require('vue-scrollto')
+const scrollOptions = {
+  duration: 1000,
+  easing: 'ease',
+  offset: -20,
+  cancelable: true,
+  onStart: false,
+  onDone: false,
+  onCancel: false,
+  x: false,
+  y: true
+}
 
 export default {
   name: 'chats',
@@ -93,11 +104,15 @@ export default {
       return this.$store.state.chats
     },
     lastVisitedChat: function () {
-      return this.formatPartnerName(this.$store.getters.lastVisitedChat)
+      return this.$store.getters.lastVisitedChat || null
     }
   },
   mounted () {
-    VueScrollTo.scrollTo('#' + this.lastVisitedChat, 12, {})
+    if (this.lastVisitedChat) {
+      if (document.getElementById(this.lastVisitedChat).offsetTop > 250) {
+        VueScrollTo.scrollTo('#' + this.lastVisitedChat, 1000, scrollOptions)
+      }
+    }
   },
   watch: {
   },
@@ -113,7 +128,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
     .chats .chat_entry {
-        max-height:25px;
+      max-height:25px;
+      justify-content: flex-start;
     }
     .chats .chat_entry p {
         margin-top: 0;
@@ -173,13 +189,26 @@ export default {
       font-weight: 500;
       padding-top: 3px;
       padding-bottom: 2px;
+      justify-content: flex-start;
     }
 
     .adamant-avatar-wrapper {
-      background-color: rgba(0, 0, 0, 0.38) !important;
+      background-color: #9d9d9d !important;
     }
 
     .adamant-avatar {
       color: #fff !important;
+    }
+
+    .md-avatar-icon {
+      background-color: #9d9d9d !important;
+    }
+
+    .md-list-item .md-list-item-container {
+      padding: 0 10px 0 10px !important;
+    }
+
+    .md-list-text-container .dt {
+      right: 10px !important;
     }
 </style>
